@@ -1,0 +1,19 @@
+# Pinout defined by hardware vendor here: https://www.robot-electronics.co.uk/files/iceFUNdoc.pdf
+
+set_io --warn-no-port led[0]        C10
+set_io --warn-no-port led[1]        A10
+set_io --warn-no-port led[2]        D7
+set_io --warn-no-port led[3]        D6
+set_io --warn-no-port led[4]        A7
+set_io --warn-no-port led[5]        C7
+set_io --warn-no-port led[6]        A4
+set_io --warn-no-port led[7]        C4
+set_io --warn-no-port col[0]        A12
+set_io --warn-no-port col[1]        D10
+set_io --warn-no-port col[2]        A6
+set_io --warn-no-port col[3]        C5
+set_io --warn-no-port clk           P7
+set_io --warn-no-port cs            P13
+set_io --warn-no-port sck           P12
+set_io --warn-no-port miso          P11
+set_io --warn-no-port mosi          M11
