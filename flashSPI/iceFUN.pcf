@@ -12,7 +12,9 @@ set_io --warn-no-port col[0]        A12
 set_io --warn-no-port col[1]        D10
 set_io --warn-no-port col[2]        A6
 set_io --warn-no-port col[3]        C5
+
 set_io --warn-no-port clk           P7
+
 set_io --warn-no-port cs            P13
 set_io --warn-no-port sck           P12
 set_io --warn-no-port miso          P11

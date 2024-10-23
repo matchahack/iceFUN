@@ -18,60 +18,19 @@
 `timescale 1 ns / 1 ps  // Time scale directive, 1 ns time unit, 1 ps time precision
 
 module output_tb();
+    wire cs, sck, mosi;
+    reg clk = 0;
 
-    // Declare wires for SPI signals and output values
-    wire mosi, sck, cs;             // SPI signals: MOSI, SCK, and CS
-    wire [7:0] led;                 // 8-bit wire for LED outputs
-    wire [3:0] col;                 // 4-bit wire for column selection (LED control)
-
-    // Declare registers for clock and MISO signal (input to DUT)
-    reg clk = 0;                    // Clock signal initialised to 0
-    reg miso;                       // MISO input (Master In Slave Out)
-
-    localparam CLK_PERIOD = 83.33;  // ns (12MHz)
+    localparam CLK_PERIOD = 83.33; // 12 MHz clock -> 1/12_000_000 second period -> 83.33 nanosecons
     localparam HALF_CLK_PERIOD = 41.67;
-    localparam DURATION = 5000;     // Simulation duration parameter (in ns)
-
-    // Instantiate the main module (Device Under Test - DUT)
-    top uut (
-        .clk(clk),                  // Connect clock signal
-        .led(led),                  // Connect LED output
-        .col(col),                  // Connect column selection output
-        .cs(cs),                    // Connect chip select (CS) output
-        .sck(sck),                  // Connect serial clock (SCK) output
-        .mosi(mosi),                // Connect MOSI output
-        .miso(miso)                 // Connect MISO input
+    localparam DURATION = 1000000;
+    
+    main uut (
+        .clk(clk),
+        .cs(cs),
+        .sck(sck),
+        .mosi(mosi)
     );
-
-    initial begin
-        // Wait for MOSI operation to finish, while MISO is in high impedence
-        miso <= 0;
-        repeat (20) @(posedge clk);
-
-        // Simulate hex value 1F (0001 1111 on MISO)
-        miso <= 0;
-        repeat (3) @(posedge clk);
-        miso <= 1;
-        repeat (5) @(posedge clk);
-
-        // Simulate hex value 85 (1000 0101 on MISO)
-        miso <= 1;
-        repeat (1) @(posedge clk);
-        miso <= 0;
-        repeat (4) @(posedge clk);
-        miso <= 1;
-        repeat (1) @(posedge clk);
-        miso <= 0;
-        repeat (1) @(posedge clk);
-        miso <= 1;
-        repeat (1) @(posedge clk);
-
-        // Simulate hex value 01 (0000 0001 on MISO)
-        miso <= 0;
-        repeat (7) @(posedge clk);
-        miso <= 1;
-        repeat (1) @(posedge clk);
-    end
 
     // VCD dump for waveform analysis
     initial begin
